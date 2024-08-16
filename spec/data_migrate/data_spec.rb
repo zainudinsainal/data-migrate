@@ -58,7 +58,7 @@ describe DataMigrate::Data do
           FROM #{DataMigrate::RailsHelper.data_schema_migration.table_name}
         SQL
 
-        db_list_data = ActiveRecord::Base.connection.
+        db_list_data = ActiveRecord::Base.lease_connection.
           select_values(sql_select).map(&:to_i)
         expect(db_list_data).to match_array(
           [fixture_file_timestamps[0], fixture_file_timestamps[1]].map(&:to_i)
