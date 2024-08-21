@@ -43,7 +43,7 @@ describe DataMigrate::DataMigrator do
       ActiveRecord::Migration.drop_table("data_migrations") rescue nil
       described_class.create_data_schema_table
       expect(
-        ActiveRecord::Base.connection.table_exists?("data_migrations")
+        ActiveRecord::Base.lease_connection.table_exists?("data_migrations")
       ).to eq true
     end
   end

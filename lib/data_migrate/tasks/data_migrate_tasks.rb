@@ -49,7 +49,7 @@ module DataMigrate
       end
 
       def status_with_schema
-        db_list_data = ActiveRecord::Base.connection.select_values(
+        db_list_data = ActiveRecord::Base.lease_connection.select_values(
           "SELECT version FROM #{DataMigrate::RailsHelper.data_schema_migration.table_name}"
         )
         db_list_schema = DataMigrate::RailsHelper.schema_migration_versions
